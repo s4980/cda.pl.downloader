@@ -1,3 +1,4 @@
 include cdapl-downloader/config.cfg
 include version.py
 include requirements.txt
+include cdapl-downloader/cdapldownloader/chromedriver

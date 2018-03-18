@@ -23,13 +23,6 @@ def get_video_download_url(video_page):
 
     try:
         video_player = driver.find_element_by_xpath('//video[@class="pb-video-player"]')
-        # video_player.click()
-        # driver.implicitly_wait(35)
-
-        # video_src = json.loads(
-        #     driver.find_element_by_xpath('//div[starts-with(@id, "mediaplayer")]').get_attribute('player_data'))[
-        #     'video']['file']
-        # return codecs.decode(video_src, 'rot_13')
         return video_player.get_attribute('src')
     except WebDriverException:
         return ''
