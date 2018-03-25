@@ -16,11 +16,13 @@ def parse_parameters(cfg):
       --user testuser \
       --folders 12345 235356 148745
     """)
-    parser.add_argument('--user', dest='cda_user', help='Cda.pl user name', required=True)
-    parser.add_argument('--domain', dest='cda_domain', help='Cda.pl main url', required=False,
+    parser.add_argument('-u', '--user', dest='cda_user', help='Cda.pl user name', required=True)
+    parser.add_argument('-d', '--domain', dest='cda_domain', help='Cda.pl main url', required=False,
                         default=cfg.get('cda.pl', 'domain'))
-    parser.add_argument('--folder', dest='cda_folders', help='user folders', required=True, action='append')
-    parser.add_argument('--version', action='version',
+    parser.add_argument('-f', '--folder', dest='cda_folders', help='user folders', required=True, action='append')
+    parser.add_argument('--dry-run', dest='dry_run', help='Collect video urls without downloading them',
+                        action="store_true")
+    parser.add_argument('-v', '--version', action='version',
                         version='%(prog)s version 0.1')
 
     args = parser.parse_args()
