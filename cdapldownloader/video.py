@@ -12,10 +12,10 @@ class Video:
         self.file_name = f'{self.title}{ext}'.replace(' ', '_')
 
     def wget_command(self):
-        return 'wget {} --no-check-certificate -O {}'.format(self.download_url, self.file_name)
+        return f'wget {self.download_url} --no-check-certificate -O {self.file_name}'
 
     def __str__(self):
-        return '{} \n\tpage_link: {} \n\tvideo_link: {}'.format(self.title, self.page_url, self.download_url)
+        return f'{self.title} \n\tpage_link: {self.page_url} \n\tvideo_link: {self.download_url}'
 
     def __repr__(self):
         return self.__str__()

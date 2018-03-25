@@ -25,7 +25,7 @@ def get_video_download_url(video_page):
 
 def get_folder_name(page_source, folder_page_url):
     tree = html.fromstring(page_source)
-    return tree.xpath('//a[@href="{}" and not(@class="active")]/text()'.format(folder_page_url))[0]
+    return tree.xpath(f'//a[@href="{folder_page_url}" and not(@class="active")]/text()')[0]
 
 
 def get_thumbnails(page_source):
