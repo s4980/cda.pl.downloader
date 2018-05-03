@@ -9,14 +9,16 @@ import mimetypes
 
 
 class Downloader:
-    def __init__(self, domain, user):
+    def __init__(self, domain, user, dest_folder, dry_run=False):
         self.domain = domain
         self.user = user
         self.user_folder_url = path.join(self.domain, self.user, 'folder')
+        self.dest_folder = dest_folder
+        self.dry_run = dry_run
 
-    def get_page_source(self, folder):
+    def get_page_source(self, folder_path):
         try:
-            folder_path = path.join(self.user_folder_url, folder)
+            # folder_path = path.join(self.user_folder_url, folder)
             page = requests.get(folder_path)
             return page.content
         except HTTPError as e:
@@ -43,7 +45,8 @@ class Downloader:
         response = requests.get(video.download_url, stream=True)
 
         # Download video with progress bar
-        with open(video.file_name, 'wb') as out_file:
+        video_dest_path = path.join(self.dest_folder, video.file_name)
+        with open(video_dest_path, 'wb') as out_file:
             for data in tqdm(response.iter_content(block_size),
                              total=math.ceil(total_size // block_size),
                              unit='KB',
@@ -53,7 +56,7 @@ class Downloader:
         if total_size != 0 and wrote != total_size:
             print("ERROR, something went wrong")
         del response
-        print(f'Video saved to {video.file_name}')
+        print(f'Video saved to {video_dest_path}')
 
     def get_video_extention(self, video_download_url):
         # Get page headers
