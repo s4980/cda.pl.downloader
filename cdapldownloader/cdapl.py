@@ -1,12 +1,14 @@
 from cdapldownloader import scraper
 from collections import defaultdict
+
+from cdapldownloader.downloader import Downloader
 from cdapldownloader.scraper import get_folder_name, get_thumbnails, get_video_download_url
 from cdapldownloader.utils import query_yes_no
 from cdapldownloader.video import Video
 from cdapldownloader.web_driver import WebDriver
 
 
-def download_videos_from_subfolders(cda_folder_urls, downloader):
+def download_videos_from_subfolders(cda_folder_urls: list, downloader: Downloader):
     web_driver = WebDriver()
     try:
         for cda_folder in cda_folder_urls:
@@ -41,7 +43,7 @@ def download_videos_from_folder(cda_folder, downloader, web_driver):
                 video.download_url = get_video_download_url(video.page_url, web_driver)
                 if video.download_url is None:
                     continue
-                video.set_file_name(downloader.get_video_extention(video.download_url))
+                video.set_file_name(downloader.get_video_extension(video.download_url))
                 if downloader.dry_run:
                     print(video.download_url, video.file_name)
                 else:

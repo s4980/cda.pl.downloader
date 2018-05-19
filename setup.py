@@ -11,9 +11,9 @@ with open(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'version.py'
 
 setup(name='cda.pl.downloader',
       version=main_ns['__version__'],
-      description='Download movies from cda.pl',
+      description='Download videos from cda.pl',
       author='s4980',
-      author_email='a4980@github.com',
+      author_email='s4980@github.com',
       packages=['cdapldownloader'],
       install_requires=install_requires,
       entry_points={

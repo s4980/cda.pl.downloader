@@ -1,4 +1,5 @@
 import sys
+from typing import Dict
 
 
 def query_yes_no(question, default="yes"):
@@ -9,16 +10,16 @@ def query_yes_no(question, default="yes"):
         an answer is required of the user).
     The "answer" return value is one of "yes" or "no".
     """
-    valid = {"yes": True, "y": True, "ye": True,
-             "no": False, "n": False}
+    valid: Dict[str, bool] = {"yes": True, "y": True, "ye": True,
+                              "no": False, "n": False}
     if default is None:
-        prompt = " [y/n] "
+        prompt: str = " [y/n] "
     elif default == "yes":
-        prompt = " [Y/n] "
+        prompt: str = " [Y/n] "
     elif default == "no":
-        prompt = " [y/N] "
+        prompt: str = " [y/N] "
     else:
-        raise ValueError("invalid default answer: '%s'" % default)
+        raise ValueError(f"invalid default answer: '{default}'")
 
     while True:
         sys.stdout.write(question + prompt)

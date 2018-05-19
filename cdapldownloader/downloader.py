@@ -16,7 +16,8 @@ class Downloader:
         self.dest_folder = dest_folder
         self.dry_run = dry_run
 
-    def get_page_source(self, folder_path):
+    @staticmethod
+    def get_page_source(folder_path):
         try:
             # folder_path = path.join(self.user_folder_url, folder)
             page = requests.get(folder_path)
@@ -39,7 +40,7 @@ class Downloader:
 
         # File extension
         if video.file_name is None:
-            video.set_file_name(self.get_video_extention(video.download_url))
+            video.set_file_name(self.get_video_extension(video.download_url))
 
         # Open stream
         response = requests.get(video.download_url, stream=True)
@@ -58,7 +59,8 @@ class Downloader:
         del response
         print(f'Video saved to {video_dest_path}')
 
-    def get_video_extention(self, video_download_url):
+    @staticmethod
+    def get_video_extension(video_download_url):
         # Get page headers
         headers = requests.head(video_download_url)
         # File extension

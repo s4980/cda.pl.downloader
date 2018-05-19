@@ -9,19 +9,21 @@ class Video:
         self.file_name = None
 
     def set_file_name(self, ext):
-        self.file_name = f'{self.title}{ext}'.replace(' ', '_')
+        self.file_name = f"{self.title}{ext}".replace(' ', '_')
 
-    def wget_command(self):
-        return f'wget {self.download_url} --no-check-certificate -O {self.file_name}'
+    def wget_command(self) -> str:
+        return f"wget {self.download_url} --no-check-certificate -O {self.file_name}"
 
-    def __str__(self):
-        return f'{self.title} \n\tpage_link: {self.page_url} \n\tvideo_link: {self.download_url}'
+    @property
+    def __str__(self) -> str:
+        return f"{self.title} \n\tpage_link: {self.page_url} \n\tvideo_link: {self.download_url}"
 
-    def __repr__(self):
-        return self.__str__()
+    @property
+    def __repr__(self) -> str:
+        return self.__str__
 
 
-def remove_lead_and_trail_slash(s):
+def remove_lead_and_trail_slash(s: str) -> str:
     if s.startswith('/'):
         s = s[1:]
     if s.endswith('/'):
