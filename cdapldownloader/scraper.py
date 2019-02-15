@@ -25,7 +25,11 @@ def get_video_download_url(video_page, web_driver) -> Optional[Any]:
 
 def get_folder_name(page_source, folder_page_url):
     tree = get_page_source_tree(page_source)
-    return tree.xpath(f"//a[@href=\"{folder_page_url}\" and not(@class=\"active\")]/text()")[0]
+    folder_tag = tree.xpath(f"//a[@href=\"{folder_page_url}\" and not(@class=\"active\")]/text()")
+    if len(folder_tag) > 0:
+        return folder_tag[0]
+    else:
+        return None
 
 
 def get_thumbnails(page_source):
@@ -36,3 +40,17 @@ def get_thumbnails(page_source):
 def get_page_source_tree(page_source: str) -> object:
     tree = html.fromstring(page_source)
     return tree
+
+
+def detect_pagination(page_source: str):
+    """
+    Detects if current folder has more than one page
+    :param page_source: html page source
+    :return: url link to next page if exists
+    """
+    tree = get_page_source_tree(page_source)
+    hrefs = tree.xpath('//div[@class="paginationControl"]//a[@class="btn btn-primary block"]/@href')
+    if len(hrefs) > 0:
+        return hrefs[0]
+    else:
+        return None

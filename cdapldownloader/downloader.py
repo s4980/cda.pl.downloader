@@ -7,17 +7,20 @@ from urllib.error import HTTPError, URLError
 
 import mimetypes
 
+from cdapldownloader.video import Video
+
 
 class Downloader:
     def __init__(self, domain, user, dest_folder, dry_run=False):
         self.domain = domain
         self.user = user
         self.user_folder_url = path.join(self.domain, self.user, 'folder')
+        self.user_main_folder = path.join(self.domain, self.user, 'folder-glowny')
         self.dest_folder = dest_folder
         self.dry_run = dry_run
 
     @staticmethod
-    def get_page_source(folder_path):
+    def get_page_source(folder_path: str):
         try:
             # folder_path = path.join(self.user_folder_url, folder)
             page = requests.get(folder_path)
@@ -60,7 +63,7 @@ class Downloader:
         print(f'Video saved to {video_dest_path}')
 
     @staticmethod
-    def get_video_extension(video_download_url):
+    def get_video_extension(video_download_url: str):
         # Get page headers
         headers = requests.head(video_download_url)
         # File extension

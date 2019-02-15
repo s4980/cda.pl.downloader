@@ -41,4 +41,5 @@ def main():
     config = read_config()
     params = parse_parameters(config)
     downloader = Downloader(params['cda_domain'], params['cda_user'], params['output_folder'], params['dry_run'])
+
     download_videos_from_subfolders(params['cda_folders'], downloader)
